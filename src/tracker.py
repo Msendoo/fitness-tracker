@@ -48,6 +48,34 @@ class FitnessTracker:
          if date is None:
              date = datetime.now().strftime("%Y-%m-%d")
          return [workout for workout in self.workouts if workout['date'] == date]
+    
+
+    def get_summary_date(self, date=None):
+
+         """ 
+         Count's up all time spent and calories burned on activities for a specific date
+        
+         :param date: Date is input/defined in the "YYYY-MM-DD" format, and returns all workouts
+         that occurs on that date. If date is input as none the total duration and calories burned are
+         returned for the current date
+
+        :return: Outputs the total duration and total calories burned
+        """
+           
+         workouts = self.get_workouts(date)
+        
+         total_time = sum(workout['duration'] for workout in workouts)
+         total_caloriesBurned = sum(workout['calories'] for workout in workouts)
+
+         return {
+            'date': date or datetime.now().strftime("%Y-%m-%d"),
+            'total_duration': total_time,
+            'total_calories': total_caloriesBurned
+        }
+          
+             
+        
+
          
     
     
